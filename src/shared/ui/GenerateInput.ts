@@ -15,10 +15,19 @@ export default class GenerateInput<T> extends Vue {
         return ''
     }
 
+    get styles() {
+        const styles = ['display:block;']
+
+        if (this.disabled) styles.push('opacity: 0.5;')
+        if (this.error) styles.push('background: red;')
+
+        return styles
+    }
+
     render(h: CreateElement): VNode | VNode[] {
         return h('input', {
             class: 'generated-input',
-            style: [this.inputBackground(), 'display:block;'],
+            style: this.styles.join(''),
             domProps: {
                 value: this.value,
             },

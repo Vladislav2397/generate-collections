@@ -93,7 +93,13 @@ type Field = {
 
 export const useCollection = (fields: Record<string, Field>) => {
     const validate = () => {
-        return Object.values(fields).every(field => field.validate())
+        let isValid = true
+        Object.values(fields).forEach(field => {
+            if (!field.validate()) {
+                isValid = false
+            }
+        })
+        return isValid
     }
 
     const getValue = () => {

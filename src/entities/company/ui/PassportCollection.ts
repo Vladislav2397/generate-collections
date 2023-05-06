@@ -6,9 +6,9 @@ import { usePassportCollection } from '@/shared/lib/collections/passportCollecti
 @Component({
     setup(props) {
         const passport = usePassportCollection({
-            firstname: props.firstname,
-            lastname: props.lastname,
-            thirdName: props.thirdName,
+            // firstname: props.firstname,
+            // lastname: props.lastname,
+            // thirdName: props.thirdName,
         })
 
         return {

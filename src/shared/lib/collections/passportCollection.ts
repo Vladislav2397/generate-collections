@@ -25,12 +25,18 @@ export function usePassportCollection(fields) {
         issuedBy,
     })
 
+    const timeout = createTimeout()
+
     watch(localCollection.getValue, async value => {
-        const isValid = localCollection.validate()
+        timeout.clear()
 
-        if (!isValid) return
+        timeout.start(async () => {
+            const isValid = localCollection.validate()
 
-        const isCorrectPassport = await checkPassport(value)
+            if (!isValid) return
+
+            const isCorrectPassport = await checkPassport(value)
+        }, 2000)
     })
 
     const collection = useCollection({
