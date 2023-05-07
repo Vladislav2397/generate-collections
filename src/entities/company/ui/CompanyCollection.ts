@@ -34,6 +34,7 @@ export default class HeadCollection extends Vue {
 
         return h('div', [
             h('p', [JSON.stringify(collection.counter.value)]),
+            h('p', [JSON.stringify(collection.isFill.value)]),
             h(collection.getComponent(), {
                 props: { collection },
                 class: 'company-collection',

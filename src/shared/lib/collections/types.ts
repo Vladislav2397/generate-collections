@@ -11,6 +11,7 @@ export type Field<T> = {
     setValue(value: T): void
     setError(error: boolean): void
     isError: Ref<boolean>
+    isFill: Ref<boolean>
     validate: () => boolean
     binding: Record<string, unknown>
     updateBinding: (binding: Record<string, unknown>) => void
@@ -23,6 +24,7 @@ export type Collection<T> = {
     getValue(): T
     validate: () => boolean
     isError: Ref<boolean>
+    isFill: Ref<boolean>
     counter: Ref<Counter>
     getComponent: () => VueConstructor
     fields: Record<string, Field<T> | Collection<T>>

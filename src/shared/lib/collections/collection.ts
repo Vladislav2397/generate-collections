@@ -9,7 +9,7 @@ export const useCollection = <T>(
     config: {
         layout: 'auto'[][]
     }
-) => {
+): Collection<T> => {
     const validate = () => {
         let isValid = true
 
@@ -50,11 +50,15 @@ export const useCollection = <T>(
         return GenerateFields
     }
 
+    const isFill = computed(() => !isError.value && counter.value.fill === counter.value.all)
+
     return {
+        // @ts-ignore
         getValue,
         getComponent,
         validate,
         isError,
+        isFill,
         counter,
         fields,
         layout: config.layout,
