@@ -6,6 +6,7 @@ import { IField } from '../lib/collections/field'
 export default class GenerateInput<T> extends Vue {
     @Prop() readonly value!: IField<T>
     @Prop() readonly error!: boolean
+    @Prop() readonly placeholder!: string
     @Prop() readonly disabled!: boolean
     @Prop() readonly loading!: boolean
 
@@ -25,11 +26,13 @@ export default class GenerateInput<T> extends Vue {
     }
 
     render(h: CreateElement): VNode | VNode[] {
+        const { value, placeholder } = this
         return h('input', {
             class: 'generated-input',
             style: this.styles.join(''),
             domProps: {
-                value: this.value,
+                value,
+                placeholder,
             },
             on: {
                 input: event => this.$emit('input', event.target.value),

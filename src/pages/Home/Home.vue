@@ -2,7 +2,8 @@
 
 h1 Home page
     //- payment-collection
-    passport-collection
+    //- passport-collection
+    head-collection
 
 </template>
 
@@ -10,12 +11,14 @@ h1 Home page
 import { ref } from 'vue'
 import { PaymentCollection } from '@/entities/company'
 import { PassportCollection } from '@/entities/company'
+import { HeadCollection } from '@/entities/company'
 
 export default {
     name: 'Home',
     components: {
         'payment-collection': PaymentCollection,
         'passport-collection': PassportCollection,
+        'head-collection': HeadCollection,
     },
     data: () => ({}),
 }

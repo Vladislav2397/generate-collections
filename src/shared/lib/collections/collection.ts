@@ -1,4 +1,5 @@
-import { computed } from 'vue'
+import GenerateFields from '@/shared/ui/GenerateFields'
+import { computed, type Ref } from 'vue'
 import type { IField } from './field'
 
 export interface ICollection<T> {
@@ -87,7 +88,8 @@ export class Collection<
 type Field = {
     validate: () => boolean
     getValue: () => string
-    binding: { error: boolean; value: string }
+    isError: Ref<boolean>
+    // binding: { error: boolean; value: string }
     counter: { value: { all: number; fill: number } }
 }
 
@@ -111,7 +113,7 @@ export const useCollection = (fields: Record<string, Field>) => {
     }
 
     const isError = computed(() =>
-        Object.values(fields).some(field => field.binding.error)
+        Object.values(fields).some(field => field.isError.value)
     )
 
     const counter = computed(() =>
@@ -126,11 +128,26 @@ export const useCollection = (fields: Record<string, Field>) => {
         )
     )
 
-    return {
+    const getComponent = () => {
+        return GenerateFields
+    }
+
+    const collection = {
         getValue,
+        getComponent,
         validate,
         isError,
         counter,
         fields,
     }
+
+    const render = h => {
+        return h(getComponent(), {
+            props: {
+                collection,
+            },
+        })
+    }
+
+    return collection
 }

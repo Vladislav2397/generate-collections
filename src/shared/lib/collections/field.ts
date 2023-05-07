@@ -91,10 +91,14 @@ export class Field<T> implements IField<T> {
     }
 }
 
-export const useField = <T = string>(config?: { initialValue: T }) => {
+export const useField = <T = string>(config?: {
+    initialValue?: T
+    binding: Record<string, unknown>
+}) => {
     const state = reactive({
-        value: '',
+        value: config?.initialValue ?? '',
         error: false,
+        ...config?.binding,
     })
 
     const getValue = () => state.value
@@ -129,10 +133,13 @@ export const useField = <T = string>(config?: { initialValue: T }) => {
         fill: +Boolean(state.value),
     }))
 
+    const isError = computed(() => state.error)
+
     return {
         getValue,
         setValue,
         setError,
+        isError,
         validate,
         updateBinding,
         counter,
