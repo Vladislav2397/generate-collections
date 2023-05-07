@@ -18,3 +18,11 @@ export default {
     name: 'App',
 }
 </script>
+
+<style>
+.card {
+    border: 1px solid #000;
+    border-radius: 12px;
+    padding: 12px;
+}
+</style>

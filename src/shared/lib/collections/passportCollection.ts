@@ -2,10 +2,27 @@ import { watch } from 'vue'
 import { useCollection } from './collection'
 import { useField } from './field'
 import { createTimeout } from './timeout'
+import GenerateFields from '@/shared/ui/GenerateFields'
 
 const checkPassport = passport => {
     return passport.number === '1111'
 }
+
+const PassportCardHOC = Generator => ({
+    functional: true,
+    render(h, { props, listeners }) {
+        return h('div', { class: 'card' }, [
+            h(
+                'b',
+                {
+                    style: 'display:block;margin-bottom: 12px',
+                },
+                ['Passport fields']
+            ),
+            h(Generator, { props, listeners }),
+        ])
+    },
+})
 
 export function usePassportCollection(fields) {
     const number = useField({
@@ -57,6 +74,8 @@ export function usePassportCollection(fields) {
         timeout.start(async () => {
             const isValid = localCollection.validate()
 
+            console.log('validation', isValid);
+
             if (!isValid) return
 
             const isCorrectPassport = await checkPassport(value)
@@ -74,13 +93,6 @@ export function usePassportCollection(fields) {
 
     return {
         ...collection,
-        getComponent: () => PassportCardHOC,
+        getComponent: () => PassportCardHOC(GenerateFields),
     }
 }
-
-const PassportCardHOC = Generator => ({
-    functional: true,
-    render(h, { props, listeners }) {
-        return h('div', { class: 'card' }, [h(Generator, { props, listeners })])
-    },
-})
