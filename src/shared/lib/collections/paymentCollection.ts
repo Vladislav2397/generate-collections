@@ -18,17 +18,41 @@ const fetchBankByBik = async (_: string) => {
 }
 
 export function usePaymentCollection() {
-    const bik = useField()
-    const bankName = useField()
-    const bankAccount = useField()
-    const correspondentAccount = useField()
-
-    const collection = useCollection({
-        bik,
-        bankAccount,
-        bankName,
-        correspondentAccount,
+    const bik = useField({
+        binding: {
+            placeholder: 'bik',
+        },
     })
+    const bankName = useField({
+        binding: {
+            placeholder: 'bankName',
+        },
+    })
+    const bankAccount = useField({
+        binding: {
+            placeholder: 'bankAccount',
+        },
+    })
+    const correspondentAccount = useField({
+        binding: {
+            placeholder: 'correspondentAccount',
+        },
+    })
+
+    const collection = useCollection(
+        {
+            bik,
+            bankAccount,
+            bankName,
+            correspondentAccount,
+        },
+        {
+            layout: [
+                ['auto', 'auto'],
+                ['auto', 'auto'],
+            ],
+        }
+    )
 
     function updateDisabled(isDisabled: boolean) {
         bankAccount.updateBinding({
@@ -44,7 +68,7 @@ export function usePaymentCollection() {
     const disableFields = () => updateDisabled(true)
     const enableFields = () => updateDisabled(false)
 
-    const timeout2 = createTimeout()
+    // const timeout2 = createTimeout()
     watch(bik.getValue, async value => {
         if (!isValidBik(value)) return
 

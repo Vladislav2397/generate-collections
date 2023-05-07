@@ -1,5 +1,3 @@
 class BaseField {
-    constructor() {
-        
-    }
+    constructor() {}
 }

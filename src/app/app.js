@@ -13,7 +13,7 @@ export function createApp() {
         router,
         store,
         // корневой экземпляр просто рендерит компонент App
-        render: (h) => h(App),
+        render: h => h(App),
     })
     return { app, router, store }
 }

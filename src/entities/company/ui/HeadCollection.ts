@@ -1,11 +1,11 @@
 import { CreateElement, VNode } from 'vue'
 import { Component, Vue } from 'vue-property-decorator'
-import GenerateInput from '@/shared/ui/GenerateInput'
+
 import { useHeadCollection } from '@/shared/lib/collections/headCollection'
 import GenerateFields from '@/shared/ui/GenerateFields'
 
 @Component({
-    setup(props) {
+    setup() {
         const head = useHeadCollection()
 
         return {
@@ -17,8 +17,19 @@ export default class HeadCollection extends Vue {
     declare collection: { fields: Record<string, any> }
 
     render(h: CreateElement): VNode | VNode[] {
-        return h('div', { class: 'head-collection' }, [
-            h(GenerateFields, { props: { collection: this.collection } }),
-        ])
+        const { collection } = this
+
+        return h(GenerateFields, {
+            props: {
+                collection,
+                layout: [
+                    ['auto'],
+                    ['auto', 'auto', 'auto'],
+                    ['auto'],
+                    ['auto'],
+                ],
+            },
+            class: 'head-collection',
+        })
     }
 }

@@ -1,8 +1,6 @@
-import { watch } from 'vue'
 import { useCollection } from './collection'
 import { useField } from './field'
 import { usePassportCollection } from './passportCollection'
-import { createTimeout } from './timeout'
 
 export function useHeadCollection() {
     const firstname = useField({
@@ -20,21 +18,31 @@ export function useHeadCollection() {
             placeholder: 'thridName',
         },
     })
-    const collection = useCollection({
-        inn: useField({
-            binding: {
-                placeholder: 'inn',
-            },
-        }),
-        firstname,
-        lastname,
-        thirdName,
-        passport: usePassportCollection({
+    const collection = useCollection(
+        {
+            inn: useField({
+                binding: {
+                    placeholder: 'inn',
+                },
+            }),
             firstname,
             lastname,
             thirdName,
-        }),
-    })
+            passport: usePassportCollection({
+                firstname,
+                lastname,
+                thirdName,
+            }),
+            address: useField({
+                binding: {
+                    placeholder: 'address',
+                },
+            }),
+        },
+        {
+            layout: [['auto'], ['auto', 'auto', 'auto'], ['auto'], ['auto']],
+        }
+    )
 
     return collection
 }

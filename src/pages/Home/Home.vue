@@ -3,15 +3,18 @@
 h1 Home page
     //- payment-collection
     //- passport-collection
-    head-collection
+    //- head-collection
+    company-collection
 
 </template>
 
 <script lang="ts">
-import { ref } from 'vue'
-import { PaymentCollection } from '@/entities/company'
-import { PassportCollection } from '@/entities/company'
-import { HeadCollection } from '@/entities/company'
+import {
+    PaymentCollection,
+    PassportCollection,
+    HeadCollection,
+    CompanyCollection,
+} from '@/entities/company'
 
 export default {
     name: 'Home',
@@ -19,6 +22,7 @@ export default {
         'payment-collection': PaymentCollection,
         'passport-collection': PassportCollection,
         'head-collection': HeadCollection,
+        'company-collection': CompanyCollection,
     },
     data: () => ({}),
 }

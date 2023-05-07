@@ -56,15 +56,20 @@ export function usePassportCollection(fields) {
         },
     })
 
-    const localCollection = useCollection({
-        ...fields,
-        number,
-        birthdayDate,
-        birthdayPlace,
-        date,
-        code,
-        issuedBy,
-    })
+    const localCollection = useCollection(
+        {
+            ...fields,
+            number,
+            birthdayDate,
+            birthdayPlace,
+            date,
+            code,
+            issuedBy,
+        },
+        {
+            layout: [],
+        }
+    )
 
     const timeout = createTimeout()
 
@@ -74,7 +79,7 @@ export function usePassportCollection(fields) {
         timeout.start(async () => {
             const isValid = localCollection.validate()
 
-            console.log('validation', isValid);
+            console.log('validation', isValid)
 
             if (!isValid) return
 
@@ -82,14 +87,22 @@ export function usePassportCollection(fields) {
         }, 2000)
     })
 
-    const collection = useCollection({
-        number,
-        birthdayDate,
-        birthdayPlace,
-        date,
-        code,
-        issuedBy,
-    })
+    const collection = useCollection(
+        {
+            number,
+            birthdayDate,
+            birthdayPlace,
+            date,
+            code,
+            issuedBy,
+        },
+        {
+            layout: [
+                ['auto', 'auto', 'auto'],
+                ['auto', 'auto', 'auto'],
+            ],
+        }
+    )
 
     return {
         ...collection,
